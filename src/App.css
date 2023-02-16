@@ -19,9 +19,7 @@ body {
 	margin: 0 auto;
 	width: 256px;
 	text-align: center;
-	border: 10px solid #101116;
 	background: #101116;
-	border-radius: 5px;
 }
 
 .keypad {
@@ -30,10 +28,31 @@ body {
 	grid-auto-rows: minmax(60px, auto);
 }
 
+.keypad button {
+	border-radius: 0px;
+	border: black 0.1px solid;
+}
+
 input[type='text'] {
 	height: 75px;
 	width: 249px;
 	background-color: #10111600;
 	border: 0px;
 	color: #fff;
+}
+
+.grid-span-2 {
+	grid-column: span 2;
+}
+
+.yellow-btn {
+	background-color: yellow;
+}
+
+.red-btn {
+	background-color: #ff3333;
+}
+
+.blue-btn {
+	background-color: #3366ff;
 }
