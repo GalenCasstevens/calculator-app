@@ -4,13 +4,47 @@ import './App.css';
 const App = () => {
 	const [result, setResult] = useState('');
 	const [operator, setOperator] = useState('');
+	const [lastExpression, setLastExpression] = useState('');
 
 	const clearResult = () => {
+		setOperator('');
+		setLastExpression('');
 		setResult('');
 	};
 
 	const buildExpression = (e) => {
+		// only one decimal per expression
+		if (lastExpression.includes('.')) return;
+
+		setLastExpression(lastExpression.concat(e.target.name));
 		setResult(result.concat(e.target.name));
+	};
+
+	const changeSign = (e) => {
+		if (lastExpression.length === 0) return;
+
+		let expression = '';
+
+		if (lastExpression.charAt(0) === '-') expression = lastExpression.slice(1);
+		else expression = '-' + lastExpression;
+
+		const ind = result.lastIndexOf(lastExpression);
+		setResult(result.substring(0, ind) + expression);
+		setLastExpression(expression);
+	};
+
+	const makeExpressionPercent = (e) => {
+		if (result === lastExpression) {
+			setResult('');
+			setLastExpression('');
+			return;
+		}
+
+		const expression = eval(lastExpression + '*.01').toString();
+		const ind = result.lastIndexOf(lastExpression);
+
+		setResult(result.substring(0, ind) + expression);
+		setLastExpression(expression);
 	};
 
 	const changeOperator = (e) => {
@@ -18,6 +52,7 @@ const App = () => {
 		if (result.length === 0) return;
 
 		const newOperator = e.target.name;
+		setLastExpression('');
 
 		if (isNewOperand()) {
 			updateOperator(newOperator);
@@ -30,13 +65,15 @@ const App = () => {
 
 	const updateOperator = (newOperator) => {
 		const ind = result.lastIndexOf(operator);
-		const newResult = result.substring(0, ind) + newOperator;
-		setResult(newResult);
+		setResult(result.substring(0, ind) + newOperator);
 	};
 
 	const calcResult = (e) => {
-		if (isNewOperand()) setResult(eval(result.substring(0, result.length - 1)));
-		else setResult(eval(result).toString());
+		if (isNewOperand()) {
+			setResult(eval(result.substring(0, result.length - 1)).toString());
+			setOperator('');
+		} else setResult(eval(result).toString());
+		setLastExpression(result);
 	};
 
 	const isNewOperand = () => {
@@ -64,10 +101,10 @@ const App = () => {
 					<button className="red-btn" onClick={clearResult}>
 						C
 					</button>
-					<button className="red-btn" onClick={buildExpression}>
+					<button className="red-btn" onClick={changeSign}>
 						+/-
 					</button>
-					<button className="red-btn" onClick={buildExpression}>
+					<button className="red-btn" onClick={makeExpressionPercent}>
 						%
 					</button>
 					<button className="yellow-btn" name="/" onClick={changeOperator}>
