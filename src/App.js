@@ -25,6 +25,9 @@ const App = () => {
 
 		let expression = '';
 
+		console.log(lastExpression);
+		console.log(result);
+
 		if (lastExpression.charAt(0) === '-') expression = lastExpression.slice(1);
 		else expression = '-' + lastExpression;
 
@@ -73,7 +76,7 @@ const App = () => {
 			setResult(eval(result.substring(0, result.length - 1)).toString());
 			setOperator('');
 		} else setResult(eval(result).toString());
-		setLastExpression(result);
+		setLastExpression(eval(result).toString());
 	};
 
 	const isNewOperand = () => {
