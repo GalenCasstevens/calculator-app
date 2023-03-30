@@ -14,7 +14,7 @@ const App = () => {
 
 	const buildExpression = (e) => {
 		// only one decimal per expression
-		if (lastExpression.includes('.')) return;
+		if (lastExpression.includes('.') && e.target.name === '.') return;
 
 		setLastExpression(lastExpression.concat(e.target.name));
 		setResult(result.concat(e.target.name));
@@ -24,9 +24,6 @@ const App = () => {
 		if (lastExpression.length === 0) return;
 
 		let expression = '';
-
-		console.log(lastExpression);
-		console.log(result);
 
 		if (lastExpression.charAt(0) === '-') expression = lastExpression.slice(1);
 		else expression = '-' + lastExpression;
