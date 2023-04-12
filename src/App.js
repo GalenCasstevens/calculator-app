@@ -34,12 +34,6 @@ const App = () => {
 	};
 
 	const makeExpressionPercent = (e) => {
-		if (result === lastExpression) {
-			setResult('');
-			setLastExpression('');
-			return;
-		}
-
 		const expression = eval(lastExpression + '*.01').toString();
 		const ind = result.lastIndexOf(lastExpression);
 
