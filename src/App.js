@@ -13,12 +13,13 @@ const App = () => {
 	};
 
 	const buildExpression = (e) => {
-		let expressionAlreadyHasDecimal =
+		let numAlreadyHasDecimal =
 			lastExpression.includes('.') && e.target.name === '.';
-		if (expressionAlreadyHasDecimal) return;
+		if (numAlreadyHasDecimal) return;
 
-		let hasLeadingZero = result.charAt(0).toString() === '0' && !isNewOperand();
-		if (hasLeadingZero) {
+		let numHasLeadingZero =
+			result.charAt(0).toString() === '0' && !isNewOperand();
+		if (numHasLeadingZero) {
 			setLastExpression(e.target.name);
 			setResult(e.target.name);
 		} else {
