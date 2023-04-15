@@ -56,6 +56,7 @@ const App = () => {
 		const newOperator = e.target.name;
 		setLastExpression('');
 
+		// if user clicks two operand buttons in a row, only append the most recent one
 		if (isNewOperand()) {
 			updateOperator(newOperator);
 			setOperator(newOperator);
