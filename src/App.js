@@ -13,11 +13,18 @@ const App = () => {
 	};
 
 	const buildExpression = (e) => {
-		// only one decimal per expression
-		if (lastExpression.includes('.') && e.target.name === '.') return;
+		let expressionAlreadyHasDecimal =
+			lastExpression.includes('.') && e.target.name === '.';
+		if (expressionAlreadyHasDecimal) return;
 
-		setLastExpression(lastExpression.concat(e.target.name));
-		setResult(result.concat(e.target.name));
+		let hasLeadingZero = result.charAt(0).toString() === '0' && !isNewOperand();
+		if (hasLeadingZero) {
+			setLastExpression(e.target.name);
+			setResult(e.target.name);
+		} else {
+			setLastExpression(lastExpression.concat(e.target.name));
+			setResult(result.concat(e.target.name));
+		}
 	};
 
 	const changeSign = (e) => {
