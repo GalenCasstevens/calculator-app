@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { clear } from '@testing-library/user-event/dist/clear';
 
 const App = () => {
 	const [result, setResult] = useState('');
@@ -63,11 +64,13 @@ const App = () => {
 	};
 
 	const calcResult = (e) => {
-		if (isNewOperand()) {
-			setResult(eval(result.substring(0, result.length - 1)).toString());
-			setOperator('');
-		} else setResult(eval(result).toString());
-		setLastExpression(eval(result).toString());
+		try {
+			setResult(eval(result).toString());
+			setLastExpression(eval(result).toString());
+		} catch {
+			setResult('ERR');
+			setTimeout(() => clearResult(), 3000);
+		}
 	};
 
 	const isNewOperand = () => {
