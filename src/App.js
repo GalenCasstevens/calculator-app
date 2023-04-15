@@ -3,13 +3,13 @@ import './App.css';
 
 const App = () => {
 	const [result, setResult] = useState('');
-	const [operator, setOperator] = useState('');
 	const [lastExpression, setLastExpression] = useState('');
+	const [operator, setOperator] = useState('');
 
 	const clearResult = () => {
-		setOperator('');
-		setLastExpression('');
 		setResult('');
+		setLastExpression('');
+		setOperator('');
 	};
 
 	const buildExpression = (e) => {
