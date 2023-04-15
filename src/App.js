@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import { clear } from '@testing-library/user-event/dist/clear';
 
 const App = () => {
 	const [result, setResult] = useState('');
